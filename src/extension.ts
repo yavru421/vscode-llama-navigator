@@ -2,8 +2,11 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as jsYaml from 'js-yaml';
 import * as vscode from 'vscode';
-import { LlamaAPIClient } from './llama-api-typescript/src';
-import type { Message } from './llama-api-typescript/src/resources/chat/chat';
+// Note: llama-api-typescript is included as a submodule. We import it dynamically
+// at runtime so the extension can function when the submodule is initialized.
+// Avoid static/relative imports that TypeScript/Node cannot resolve in this repo layout.
+// Types for the external package are declared in src/types/llama-submodule.d.ts
+// (LlamaAPIClient and Message are treated as any via ambient declarations).
 import { DondlingerSidebarProvider } from './sidebar';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -220,7 +223,9 @@ When generating answers, always start with a short summary, then the APT modules
 	// --- APT Module: LLM API Integration for Inline Completions ---
 		async function getLlamaInlineCompletion(prompt: string, apiUrl: string, apiKey: string): Promise<string> {
 			try {
-				const { LlamaAPIClient } = await import('./llama-api-typescript/src/index.js');
+				// Dynamic import of upstream package (ambient types declare this module)
+				// @ts-ignore
+				const { LlamaAPIClient } = await import('llama-api-typescript');
 				const client = new LlamaAPIClient({ apiKey, baseURL: apiUrl });
 					const res = await client.chat.completions.create({
 						messages: [{ role: 'user', content: prompt }],

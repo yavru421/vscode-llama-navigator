@@ -221,7 +221,11 @@ export class DondlingerSidebarProvider implements vscode.WebviewViewProvider {
     this.persistState();
 
     try {
-      const { LlamaAPIClient } = await import('./llama-api-typescript/src/index.js');
+      // The llama client is an external submodule without ambient types in this repo.
+      // Tell TypeScript to ignore module resolution here; at runtime the submodule
+      // will be initialized by CI or the developer (see README).
+  // @ts-ignore: import declared in ambient types as 'llama-api-typescript'
+  const { LlamaAPIClient } = await import('llama-api-typescript');
       const apiUrl = this.settings.apiUrl || vscode.workspace.getConfiguration().get<string>('dondlinger.apiUrl') || '';
       const apiKey = this.settings.apiKey || vscode.workspace.getConfiguration().get<string>('dondlinger.apiKey') || '';
       const client: any = new LlamaAPIClient({ apiKey, baseURL: apiUrl });
@@ -263,7 +267,8 @@ export class DondlingerSidebarProvider implements vscode.WebviewViewProvider {
     this.persistState();
 
     try {
-      const { LlamaAPIClient } = await import('./llama-api-typescript/src/index.js');
+  // @ts-ignore: import declared in ambient types as 'llama-api-typescript'
+  const { LlamaAPIClient } = await import('llama-api-typescript');
       const apiUrl = this.settings.apiUrl || vscode.workspace.getConfiguration().get<string>('dondlinger.apiUrl') || '';
       const apiKey = this.settings.apiKey || vscode.workspace.getConfiguration().get<string>('dondlinger.apiKey') || '';
       const client: any = new LlamaAPIClient({ apiKey, baseURL: apiUrl });
@@ -594,7 +599,8 @@ export class DondlingerChatPanel {
     this._panel.webview.postMessage({ type: 'appendMessage', message: { role: 'user', content: prompt, timestamp: Date.now() } });
 
     try {
-      const { LlamaAPIClient } = await import('./llama-api-typescript/src/index.js');
+  // @ts-ignore: import declared in ambient types as 'llama-api-typescript'
+  const { LlamaAPIClient } = await import('llama-api-typescript');
       const apiUrl = this.settings.apiUrl || vscode.workspace.getConfiguration().get<string>('dondlinger.apiUrl') || '';
       const apiKey = this.settings.apiKey || vscode.workspace.getConfiguration().get<string>('dondlinger.apiKey') || '';
       const client: any = new LlamaAPIClient({ apiKey, baseURL: apiUrl });
