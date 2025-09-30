@@ -1,0 +1,3 @@
+[submodule "src/llama-api-typescript"]
+	path = src/llama-api-typescript
+	url = https://github.com/meta-llama/llama-api-typescript.git
