@@ -1,0 +1,125 @@
+{
+  "name": "dondlinger",
+  "publisher": "johnsmith",
+  "displayName": "Dondlinger",
+  "description": "VSCode extension for Llama Chat Completions API. Drop in your API key and URL, get completions, tool calls, and structured outputs. More useful and direct than Copilot. Unique: Dondlinger.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.104.0"
+  },
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onCommand:dondlinger.openChat",
+    "onCommand:dondlinger.openHome",
+    "onView:dondlinger.sidebarDev"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "dondlinger.openChat",
+        "title": "Dondlinger: Open Chat"
+      },
+      {
+        "command": "dondlinger.injectContext",
+        "title": "Dondlinger: Inject Context"
+      },
+      {
+        "command": "dondlinger.previewEdit",
+        "title": "Dondlinger: Preview AI Edit"
+      },
+      {
+        "command": "dondlinger.readFile",
+        "title": "Dondlinger: Read File"
+      },
+      {
+        "command": "dondlinger.writeFile",
+        "title": "Dondlinger: Write File"
+      },
+      {
+        "command": "dondlinger.deleteFile",
+        "title": "Dondlinger: Delete File"
+      },
+      {
+        "command": "dondlinger.editFile",
+        "title": "Dondlinger: Edit File"
+      },
+      {
+        "command": "dondlinger.testCommand",
+        "title": "Dondlinger: Test Command"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Dondlinger",
+      "properties": {
+        "dondlinger.apiUrl": {
+          "type": "string",
+          "default": "https://api.llama.com/v1/chat/completions",
+          "description": "Llama API URL"
+        },
+        "dondlinger.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Llama API Key"
+        }
+        ,
+        "dondlinger.systemPrompt": {
+          "type": "string",
+          "default": "Assistant: Dondlinger\\nFollow the Algebraic Pipeline Theory (APT): define variables x1.., decompose into modules M1..Mk, provide pipeline equation y=f(g(x)), list module contracts, and include reproduction prompts.",
+          "description": "System prompt injected into chat sessions (supports APT instructions)."
+        },
+        "dondlinger.enableInline": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable inline completion provider (Copilot-like)."
+        }
+        ,
+        "dondlinger.aptEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable APT mode by default for system prompts and pipeline behavior."
+        }
+      }
+    }
+  },
+  "viewsContainers": {
+    "activitybar": [
+      {
+        "id": "dondlinger",
+        "title": "Dondlinger",
+        "icon": "images/dondlinger.svg"
+      }
+    ]
+  },
+  "views": {
+    "dondlinger": [
+      {
+        "id": "dondlinger.sidebarDev",
+        "name": "Dondlinger"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@types/vscode": "^1.104.0",
+    "@typescript-eslint/eslint-plugin": "^8.42.0",
+    "@typescript-eslint/parser": "^8.42.0",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.34.0",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}

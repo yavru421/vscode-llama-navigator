@@ -1,0 +1,5 @@
+2025-09-25 17:08:25,043 - PowerPilot - INFO - System prompt loaded successfully
+2025-09-25 17:08:25,054 - PowerPilot - INFO - Loaded 11 blacklisted commands
+2025-09-25 17:08:25,070 - PowerPilot - INFO - Performing environment diagnostics
+2025-09-25 17:12:01,377 - PowerPilot - INFO - Executing suggested command: dir
+2025-09-25 17:13:19,816 - PowerPilot - INFO - Executing suggested command: nano filename.js
